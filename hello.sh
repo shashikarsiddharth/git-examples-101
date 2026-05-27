@@ -1,12 +1,29 @@
 #! /bin/bash
 
 
+read number1
 
+forloop() {
 
-for i in {1..5}
+for i in $(seq $number1)
 do 
-	read -p "Enter  number: " num1
-	sum=$((i + num1))
-	echo $sum
+	echo $i
 done
+}
+
+whileloop() {
+
+i=1
+while [[ $i -le $number1 ]]
+do
+	echo $i
+	i=$(expr $i + 1)
+	
+done
+}
+
+forloop
+
+
+
 
