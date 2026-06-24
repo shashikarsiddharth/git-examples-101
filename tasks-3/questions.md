@@ -57,7 +57,7 @@ Top 5 Slowest Requests:
 ```
 ---
 
-## Requirements
+### Requirements
 
 The script must:
 1. Accept the log file path as a command-line argument.
@@ -70,7 +70,7 @@ The script must:
 
 ---
 
-## Error Handling
+### Error Handling
 If the user does not pass a file:
 
 ```bash
@@ -97,7 +97,7 @@ Error: File is not readable
 
 ---
 
-## Additional Requirements
+### Additional Requirements
 Implement the following features as well.
 
 1. Add `--status` filter.
