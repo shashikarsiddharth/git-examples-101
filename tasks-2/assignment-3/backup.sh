@@ -1,23 +1,21 @@
 #! /bin/bash
 
-# Write a script that backs up a directory into a compressed archive. Make sure to only keep the latest 5 backups.Older backups automatically deleted and also log success/failure to backup.log file.
-
-
 FILE_NAME=$1
 DATE=$(date +%d-%m-%y-%H-%M-%S)
 BACKUP_DIR=/tmp/bkp
 
-mkdir -p /tmp/bkp
+mkdir -p $BACKUP_DIR
 
-zip -r -q $BACKUP_DIR/$DATE.zip $FILE_NAME
+zip -r -q $BACKUP_DIR/$DATE.zip $FILE_NAME 
 
+ACTIVE_FILES=$(ls -lt $BACKUP_DIR | head -6 | tail -5 | awk '{ print $9 }')
+ALL_FILES=$(ls -lt $BACKUP_DIR | awk '{ print $9 }')
 
-expr=$(ls -lt /tmp/bkp | head -6 | tail -5 | awk '{ print $9 }')
-
-for file in $expr
+for file in $ALL_FILES
 do
-	echo $file
-	if [[ 
-
-	
+	echo $file | grep "$ACTIVE_FILES" > /dev/null
+	if [[ $? -ne 0 ]]
+	then
+		rm $BACKUP_DIR/$file
+	fi
 done
