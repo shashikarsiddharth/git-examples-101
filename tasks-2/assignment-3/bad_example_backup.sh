@@ -10,7 +10,7 @@
 
 #2.find latest backups.
 #2.1 list down the backup directory.
-#2.2 grep the latest 5 files in backup directory as per timestamp.
+#2.2 head the latest 5 files in backup directory as per timestamp.
 
 #3.find non-latest backups.
 #3.1 list down the backup directory and grep the older backup files.
@@ -19,9 +19,16 @@
 #4.write log
 #4.1 write script output to a log file.
 
+set -x
 
 FILENAME=$(date +%Y-%m-%d-%H-%M-%S)
-BACKUP_DIR=$1
+TARGET_DIR=$1
+BACKUP_DIR=/tmp/bkp
 
-zip -r  $FILENAME.zip $BACKUP_DIR 
+mkdir -p /tmp/bkp
+zip -r  $BACKUP_DIR/$FILENAME.zip $TARGET_DIR 
 
+for file in $(ls -lt $BACKUP_DIR | tail -$(expr $(ls -lt $BACKUP_DIR | wc -l) - 6) | awk '{ print $9 }')
+do
+	rm $BACKUP_DIR/$file
+done
