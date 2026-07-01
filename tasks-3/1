@@ -1,0 +1,21 @@
+#! /bin/bash
+
+FILE_PATH=$1
+
+
+usage(){
+echo "$0" [arguments] [options]
+echo "$0: Tool to parse nginx log file.
+echo "Arguments"
+echo "<log_file>" Path to the nginx log file to parse
+echo Options:
+echo -h, --help Display this help message
+echo -s, --status Parse log file for specific HTTP status code
+echo -m, --method Parse log file for specific HTTP method
+}
+
+if [[ $# -eq 0 ]]
+then
+	usage
+	exit 1
+fi
